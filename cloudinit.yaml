@@ -1,6 +1,4 @@
 #cloud-config
-debug:
-  verbose: true
 rancher:
   console: centos
   network:
@@ -8,16 +6,8 @@ rancher:
       search:
       - 8.8.8.8
       - 8.8.4.4
-package_upgrade: true
-packages:
-  - man
-  - zsh
-  - git
 runcmd:
-  - chsh -s /bin/zsh rancher
-  - |
-    su rancher
-    cd ~
-    git clone --depth=1 git@github.com:eexit/rancheros.git
-    ~/rancheros/home/rancher/provision
+  - yum install -q -y man zsh git
+  - su rancher -c 'cd ~; git clone --depth=1 https://github.com/eexit/rancheros.git; ~/rancheros/home/rancher/provision'
   - /home/rancher/rancheros/root/provision
+  - chsh -s /bin/zsh rancher
