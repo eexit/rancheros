@@ -7,7 +7,7 @@ rancher:
       - 8.8.8.8
       - 8.8.4.4
 runcmd:
-  - yum install -q -y man zsh git
+  - yum install -q -y epel-release man zsh git jq
   - su rancher -c 'cd ~; git clone --depth=1 https://github.com/eexit/rancheros.git; ~/rancheros/home/rancher/provision'
   - /home/rancher/rancheros/root/provision
   - chsh -s /bin/zsh rancher
