@@ -1,0 +1,14 @@
+#cloud-config
+rancher:
+  console: centos
+  network:
+    dns:
+      search:
+      - 8.8.8.8
+      - 8.8.4.4
+runcmd:
+  - yum install -q -y zsh git
+  - chsh -s /bin/zsh rancher
+  - su rancher -c 'git clone git@github.com:eexit/rancheros.git'
+  - /home/rancher/rancher/root/provision
+  - su rancher -c '/home/rancher/rancher/home/rancher/provision'

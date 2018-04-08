@@ -1,0 +1,19 @@
+#!/bin/sh
+set -euo pipefail
+dcversion=1.20.1
+
+echo -n "iptable-restore... "
+iptables-restore --noflush < ~/iptables.rules
+echo "ok"
+
+echo -n "docker-compose... "
+curl -fsSL --create-dirs https://github.com/docker/compose/releases/download/$dcversion/docker-compose-`uname -s`-`uname -m` -o /opt/bin/docker-compose
+chown -R rancher /opt/bin
+chmod -R +x /opt/bin
+echo "ok"
+
+echo -n "motd... "
+mv -f /home/rancher/rancher/etc/motd /etc/motd
+chown root:root /etc/motd
+chmod 0644 /etc/motd
+echo "ok"

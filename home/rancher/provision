@@ -1,0 +1,16 @@
+#!/bin/sh
+set -euo pipefail
+
+echo -n "oh-my-zsh... "
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+curl -fsSL https://raw.githubusercontent.com/shashankmehta/dotfiles/master/thesetup/zsh/.oh-my-zsh/custom/themes/gitster.zsh-theme -o ~/gitster.zsh-theme
+mv -f ~/gitster.zsh-theme ~/.oh-my-zsh/themes
+mv -f ~/rancher/home/rancher/.zshrc ~/.zshrc
+echo "ok"
+
+echo -n "git... "
+git clone git@github.com:eexit/dotfiles.git ~/.dotfiles
+sed -e "s/AUTHORNAME/Joris Berthelot/g" -e "s/AUTHOREMAIL/admin@eexit.net/g" -e "s/GIT_CREDENTIAL_HELPER/cache/g" ~/.dotfiles/git/gitconfig.local.symlink.example > ~/.gitconfig.local
+ln -s ~/.dotfiles/git/gitconfig.symlink ~/.gitconfig
+ln -s ~/.dotfiles/vim/vimrc.symlink ~/.vimrc
+echo "ok"
