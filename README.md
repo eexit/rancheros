@@ -12,16 +12,19 @@ Clone this repo:
 
 	$ git clone git@github.com:eexit/rancheros.git
 
+Get your SSH ID list:
+
+	$ doctl compute ssh-key list --format ID
+
 Create a droplet with user-data:
 
 	$ doctl compute droplet create my-droplet \
 		--image rancheros \
 		--size 1gb \
 		--region lon1 \
-		--ssh-keys idx,idy \
+		--ssh-keys ID1,ID2,IDx \
 		--user-data-file cloudinit.yaml
 
-To get the ssh-keys IDs:
+Get the IP of your droplet:
 
-	$ doctl compute ssh-key list --format ID
-
+	$ doctl compute droplet list my-droplet --format PublicIPv4

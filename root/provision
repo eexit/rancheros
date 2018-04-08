@@ -1,9 +1,10 @@
 #!/bin/sh
 set -euo pipefail
 dcversion=1.20.1
+cwd=$(dirname "$0")
 
 echo -n "iptable-restore... "
-iptables-restore --noflush < ~/iptables.rules
+iptables-restore --noflush < "$cwd/iptables.rules"
 echo "ok"
 
 echo -n "docker-compose... "
@@ -13,7 +14,7 @@ chmod -R +x /opt/bin
 echo "ok"
 
 echo -n "motd... "
-mv -f /home/rancher/rancher/etc/motd /etc/motd
+mv -f "$cwd/../etc/motd" /etc/motd
 chown root:root /etc/motd
 chmod 0644 /etc/motd
 echo "ok"
