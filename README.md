@@ -19,11 +19,11 @@ Get your SSH keys ID list:
 Create a droplet with user-data:
 
 	$ doctl compute droplet create my-droplet \
-		--image rancheros \
-		--size 1gb \
-		--region lon1 \
-		--ssh-keys ID1,ID2,IDx \
-		--user-data-file cloud-init.yaml
+	--image rancheros \
+	--size 1gb \
+	--region lon1 \
+	--ssh-keys ID1,ID2,IDx \
+	--user-data-file cloud-init.yaml
 
 Get the IP of your droplet:
 

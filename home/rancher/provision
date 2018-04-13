@@ -2,6 +2,10 @@
 set -euo pipefail
 cwd=$(dirname "$0")
 
+echo -n "proxy... "
+ln -s "$cwd/proxy" ~/proxy
+echo "ok"
+
 echo -n "oh-my-zsh... "
 git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 curl -fsSL https://raw.githubusercontent.com/shashankmehta/dotfiles/master/thesetup/zsh/.oh-my-zsh/custom/themes/gitster.zsh-theme -o ~/gitster.zsh-theme
