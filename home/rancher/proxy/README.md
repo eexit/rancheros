@@ -6,5 +6,12 @@ The proxy stack is in network mode `bridge` so other containers outside of this 
 
 ## Development
 
-	$ dc -f docker-compose.dev.yml up --build proxy
+	$ dc -f docker-compose.dev.yml up -d --build proxy
 
+## Production
+
+    $ dc up -d --build lec
+
+## Upgrading
+
+    $ dc up -d --build --no-deps proxy

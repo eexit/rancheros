@@ -8,7 +8,7 @@ x-logging:
 services:
   proxy:
     build: .
-    image: proxy:${VERSION:-$DATE}
+    image: proxy:${DATE}
     container_name: proxy
     network_mode: bridge
     logging: *default-logging
@@ -18,10 +18,12 @@ services:
       - '443:443'
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - /usr/share/nginx/html
-      - ./certs:/etc/nginx/certs
+      - proxy:/usr/share/nginx/html
+      - proxy:/etc/nginx/vhost.d
+      - proxy:/etc/nginx/certs
   lec:
     image: jrcs/letsencrypt-nginx-proxy-companion
+    container_name: lec
     logging: *default-logging
     network_mode: bridge
     restart: unless-stopped
@@ -30,5 +32,9 @@ services:
     depends_on:
       - proxy
     volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-      - ./certs:/etc/nginx/certs
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - proxy:/usr/share/nginx/html
+      - proxy:/etc/nginx/vhost.d
+      - proxy:/etc/nginx/certs
+volumes:
+  proxy:

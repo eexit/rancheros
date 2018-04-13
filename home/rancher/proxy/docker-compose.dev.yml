@@ -6,19 +6,12 @@ services:
     network_mode: bridge
     ports:
       - '80:80'
-      - '443:443'
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - /usr/share/nginx/html
-      - ./certs:/etc/nginx/certs
-      - ./vhosts/blog.eexit.net_location:/etc/nginx/vhost.d/blog.test_location
-  lec:
-    image: jrcs/letsencrypt-nginx-proxy-companion
-    network_mode: bridge
-    environment:
-      NGINX_PROXY_CONTAINER: proxy
-    depends_on:
-      - proxy
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-      - ./certs:/etc/nginx/certs
+      - proxy:/usr/share/nginx/html
+      - proxy:/etc/nginx/vhost.d
+      - proxy:/etc/nginx/certs
+      - ./vhost.d/blog.eexit.net_location:/etc/nginx/vhost.d/blog.test_location
+      - ./vhost.d/joris.berthelot.photography_location:/etc/nginx/vhost.d/portfolio.test_location
+volumes:
+  proxy:
