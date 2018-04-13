@@ -1,0 +1,7 @@
+# Mandatory redirections
+rewrite ^/about.html$ /about permanent;
+rewrite ^/contact.html$ /inquiry permanent;
+
+# Redirect YYYY.html or YYYY/MM-*.html to the archives portfolio
+# Note: wrap the regex in double quotes because it contains {} chars
+rewrite "^/\d{4}(/(.*)+)?.html$" https://archives.joris.berthelot.photography$request_uri permanent;

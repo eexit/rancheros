@@ -1,0 +1,34 @@
+version: '3.6'
+x-logging:
+  &default-logging
+  driver: json-file
+  options:
+    max-size: 200k
+    max-file: '10'
+services:
+  proxy:
+    build: .
+    image: proxy:${VERSION:-$DATE}
+    container_name: proxy
+    network_mode: bridge
+    logging: *default-logging
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - /usr/share/nginx/html
+      - ./certs:/etc/nginx/certs
+  lec:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    logging: *default-logging
+    network_mode: bridge
+    restart: unless-stopped
+    environment:
+      NGINX_PROXY_CONTAINER: proxy
+    depends_on:
+      - proxy
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./certs:/etc/nginx/certs
