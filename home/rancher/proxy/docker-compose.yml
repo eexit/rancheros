@@ -18,9 +18,10 @@ services:
       - '443:443'
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - proxy:/usr/share/nginx/html
-      - proxy:/etc/nginx/vhost.d
-      - proxy:/etc/nginx/certs
+      - proxy-conf:/etc/nginx/conf.d
+      - proxy-vhost:/etc/nginx/vhost.d
+      - proxy-html:/usr/share/nginx/html
+      - proxy-certs:/etc/nginx/certs:ro
   lec:
     image: jrcs/letsencrypt-nginx-proxy-companion
     container_name: lec
@@ -33,8 +34,12 @@ services:
       - proxy
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - proxy:/usr/share/nginx/html
-      - proxy:/etc/nginx/vhost.d
-      - proxy:/etc/nginx/certs
+      - proxy-conf:/etc/nginx/conf.d
+      - proxy-vhost:/etc/nginx/vhost.d
+      - proxy-html:/usr/share/nginx/html
+      - proxy-certs:/etc/nginx/certs
 volumes:
-  proxy:
+  proxy-conf:
+  proxy-vhost:
+  proxy-html:
+  proxy-certs:
