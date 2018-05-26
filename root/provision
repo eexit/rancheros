@@ -14,7 +14,7 @@ chmod -R +x /opt/bin
 echo "ok"
 
 echo -n "motd... "
-mv -f "$cwd/../etc/motd" /etc/motd
+cp -f "$cwd/../etc/motd" /etc/motd
 chown root:root /etc/motd
 chmod 0644 /etc/motd
 echo "ok"
